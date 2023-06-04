@@ -45,9 +45,11 @@ export const ProductProvider = ({children}:ChildrenType):ReactElement => {
 
     useEffect(() => {
         const fetchProducts =  async():Promise<ProductType[]> => {
-            const data =  await fetch('http://locolhost:3500/products').then((res) => {
+            const data =  await fetch('http://localhost:3500/products').then((res) => {
+                // console.log(res)
                 return res.json()
             })
+            // console.log(data)
 
             return data
                 }

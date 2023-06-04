@@ -70,7 +70,7 @@ const reducer = (state:CartStateType, action: ReducerAction): CartStateType => {
 
         case REDUCER_ACTION_TYPE.QUANTITY:{
             if(!action.payload) {
-                throw new Error ('action.payload missing in qauntity action')
+                throw new Error ('action.payload missing in quantity action')
               }
               const {sku, qty} = action.payload
 
@@ -78,7 +78,7 @@ const reducer = (state:CartStateType, action: ReducerAction): CartStateType => {
               //get the cart item
               const ItemExist : CartItemType | undefined  = state.cart.find((item) => item.sku === sku)
 
-              if(ItemExist){
+              if(!ItemExist){
                 throw new Error('Item must exist in order to update quantity')
               }
               
@@ -115,7 +115,7 @@ const totalItems = state.cart.reduce((previousValue, cartItem) => {
 
 const totalPrice =  new Intl.NumberFormat('en-US', {style:'currency', currency:'USD'}).format(
     state.cart.reduce((previousValue, cartItem) => {
-        return previousValue + (cartItem.qty + cartItem.price)
+        return previousValue + (cartItem.qty * cartItem.price)
     }, 0)
 )
 
